@@ -52,7 +52,7 @@ const DepositPopUp = ({ text = 'Make a Deposit', variant = 'solid', arrow = '' }
         <Tabs.Content value="paypal">
          <div className="">
           <p>Account Details</p>
-          <p>1234567</p>
+          <Text size="2">{wallet[0].paypal}</Text>
          </div>
 
         </Tabs.Content>

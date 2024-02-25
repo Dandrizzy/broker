@@ -17,7 +17,7 @@ const UserInvest = () => {
      </div>
 
      <Flex gap="3" align="center">
-      <Button variant="outline" highContrast>
+      <Button variant="outline" highContrast onClick={() => navigate('/user')}>
        Deposit Funds &rarr;
       </Button>
       <Button variant="solid" onClick={() => navigate('/user/plans')}>
@@ -42,7 +42,7 @@ const UserInvest = () => {
         <p className=" text-xs">Locked</p>
        </div>
        <Flex gap="3" align="center">
-        <Button variant="solid" highContrast>
+        <Button variant="solid" highContrast onClick={() => navigate('/user')}>
          Transfer Funds &rarr;
         </Button>
        </Flex>

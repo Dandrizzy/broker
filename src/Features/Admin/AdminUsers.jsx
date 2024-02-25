@@ -17,7 +17,7 @@ const AdminUsers = () => {
  };
 
  return (
-  <div className=" p-4">
+  <div className=" p-4 min-h-screen">
    <Heading>Users List</Heading>
 
    <p className=" text-xs">Total of <span className=" font-semibold">{data?.users.length}</span> User accounts.</p>

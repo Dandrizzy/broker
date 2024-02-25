@@ -7,29 +7,36 @@ import { useUser } from "../authentication/useUser";
 import { useGet } from "../../Hooks/Get/useGet";
 import { useGetApi } from "../../Hooks/Get/useGetApi";
 import Spinner from "../../ui/Spinner";
+import WithdrawPopUp from "../../ui/WithdrawPopUp";
+import CreateAccount from "./CreateAccount";
 
 const UserDashboard = () => {
  const { user } = useUser();
+
  const { fetch: fn } = useGetApi({ key: 'balance' });
  const { fetch, isFetching } = useGet({ fn, key: ['balance'] });
  const navigate = useNavigate();
  if (isFetching) return <Spinner />;
- const balance = fetch.filter(item => item.userId === user.id)[0].balance;
+ const balance = fetch?.filter(item => item.userId === user.id)[0]?.balance;
+
  return (
-  <div className="p-4 text-slate-700 bg-neutral-100">
-   <div className=" text-slate-600 grid gap-2">
+  <div className="p-4 text-slate-700 bg-neutral-100 min-h-screen">
+   <div className=" text-slate-600 sm:flex grid sm:items-center sm:justify-between gap-2">
     <div className="">
      <h1 className="text-sm">Welcome!</h1>
      <h1 className=" font-bold text-lg uppercase">{user.user_metadata.displayName}</h1>
      <h1 className=" text-xs">Here&apos;s a summary of your account. Have fun!
      </h1>
     </div>
-    <div className="">
-
+    <div className="pt-3">
+     <Button color="cyan" variant="solid" highContrast onClick={() => navigate('/user/plans')}>
+      Invest & Earn
+     </Button>
     </div>
    </div>
+   {!balance && <CreateAccount />}
 
-   <div className=" py-8 grid gap-8 sm:grid-cols-3">
+   {balance && <div className=" py-8 grid gap-8 sm:grid-cols-3">
 
 
     <div className="shadow-lg max-w-md p-3 border-b-4 border-blue-500 rounded-md bg-white">
@@ -45,10 +52,8 @@ const UserDashboard = () => {
      </div>
      <p className="pb-8 font-bold text-sm">{formatCurrency(0)}</p>
      <Flex gap="3">
-      <DepositPopUp arrow='&rarr;' text="Deposit" />
-      <Button color="cyan" variant="solid" highContrast onClick={() => navigate('/user/plans')}>
-       Invest & Earn
-      </Button>
+      <DepositPopUp text="Deposit" />
+      <WithdrawPopUp />
      </Flex>
 
     </div>
@@ -86,7 +91,7 @@ const UserDashboard = () => {
 
     </div>
 
-   </div>
+   </div>}
 
    <div className=" text-sm">
     <p className=" text-neutral-700 font-semibold pb-3">Recent Activity</p>

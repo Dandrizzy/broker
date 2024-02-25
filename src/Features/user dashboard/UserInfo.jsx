@@ -28,13 +28,13 @@ const UserInfo = () => {
      </div>
      <DropdownMenu.Separator />
      <DropdownMenu.Item >
-      <div className=" flex gap-3 items-center" onClick={() => console.log('click')}>
+      <div className=" flex gap-3 items-center" onClick={() => navigate('/user')}>
        <CardStackPlusIcon width="16" height="16" /> Deposit funds
       </div>
      </DropdownMenu.Item>
      <DropdownMenu.Separator />
      <DropdownMenu.Item >
-      <div className=" flex gap-3 items-center" onClick={() => console.log('click')}>
+      <div className=" flex gap-3 items-center" onClick={() => navigate('/user')}>
        <CardStackMinusIcon width="16" height="16" /> Withdraw funds
       </div>
      </DropdownMenu.Item>

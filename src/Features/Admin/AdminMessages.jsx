@@ -16,8 +16,6 @@ const AdminMessages = ({ id }) => {
  const { getChatHistory } = useGetChatApi({ id: id });
  const { fetch: fetchChat, isFetching } = useGet({ key: ['chats'], fn: getChatHistory });
  if (isFetching) return <Spinner />;
- console.log(fetchChat);
-
  const onSubmit = (data) => {
   createChat({ ...data, chatId: id, author: 'admin' });
   reset();
