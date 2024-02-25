@@ -1,6 +1,8 @@
 import { AlertDialog, Button, Flex } from '@radix-ui/themes';
 
 const InvestBtn = ({ plan, id }) => {
+
+ console.log(plan, id);
  return (
   <div>
    <AlertDialog.Root>

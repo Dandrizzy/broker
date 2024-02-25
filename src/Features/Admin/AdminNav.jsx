@@ -1,4 +1,4 @@
-import { AvatarIcon, CheckCircledIcon, DashboardIcon, EnterIcon, ExitIcon, HamburgerMenuIcon, ReaderIcon } from "@radix-ui/react-icons";
+import { AvatarIcon, DashboardIcon, EnterIcon, ExitIcon, HamburgerMenuIcon, HomeIcon, ReaderIcon } from "@radix-ui/react-icons";
 import { Button, DropdownMenu } from "@radix-ui/themes";
 import { useNavigate } from "react-router-dom";
 
@@ -51,9 +51,9 @@ const AdminNav = () => {
        </div>
       </DropdownMenu.Item>
       <DropdownMenu.Item>
-       <div onClick={() => navigate('/admin/verify')} className=" flex gap-2 items-center p-2">
-        <CheckCircledIcon height='22' width='22' />
-        Verification Center
+       <div onClick={() => navigate('/')} className=" flex gap-2 items-center p-2">
+        <HomeIcon height='22' width='22' />
+        Go to home
        </div>
       </DropdownMenu.Item>
      </div>

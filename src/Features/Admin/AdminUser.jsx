@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { useGetById } from "../../Hooks/GetSpecific/useGetById";
 import { useGet } from "../../Hooks/Get/useGet";
 import EditBalance from "../../ui/EditBalance";
+import AdminMessages from "./AdminMessages";
 
 const AdminUser = () => {
  const { userId } = useParams();
@@ -16,13 +17,13 @@ const AdminUser = () => {
 
  const balance = fetch?.data?.balance;
 
- const { data, isLoading } = useUsers();
-
- const users = data?.users?.filter(user => user.id === userId);
+ const { data: { users }, isLoading } = useUsers();
  if (isLoading || isFetching) return <Spinner />;
+ // Find the current user in the array of all users and display their information.
+ const userData = users.filter(user => user.id === userId);
  const { user_metadata: {
   address, country, dateOfBirth, displayName, fullName, gender, phoneNumber
- } } = users[0];
+ } } = userData[0];
  return (
   <>
    <div className="p-4 bg-slate-100 text-slate-600">
@@ -145,11 +146,12 @@ const AdminUser = () => {
      <EnvelopeClosedIcon />
      Mail
     </Button>
+    <AdminMessages id={userId} />
     <Button color="crimson" variant="solid">
      <TrashIcon />
      Delete
     </Button>
-    <BackBtn my="0" />
+
    </Flex>
 
   </>

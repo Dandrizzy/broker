@@ -1,8 +1,36 @@
 import { CaretRightIcon, ExclamationTriangleIcon, LockClosedIcon, PersonIcon, SewingPinIcon } from "@radix-ui/react-icons";
 import { FaMale } from 'react-icons/fa';
-import { Box, Button, Callout, DropdownMenu, Flex, Grid, Heading, Select, Tabs, TextField } from "@radix-ui/themes";
+import { Box, Button, Callout, DropdownMenu, Flex, Grid, Heading, Tabs, TextField } from "@radix-ui/themes";
 import { FaBuildingColumns, FaPaypal, FaWallet } from "react-icons/fa6";
+import { Form } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useUser } from "../authentication/useUser";
+import { useUpdateUser } from "../authentication/useUpdateUser";
+import toast from "react-hot-toast";
+import SpinnerMini from "../../ui/SpinnerMini";
 const UserProfile = () => {
+ const { updateUser, isUpdating } = useUpdateUser();
+ const {
+  user: {
+   user_metadata: { fullName, gender, displayName, country, address },
+  },
+ } = useUser();
+ const { register, handleSubmit, reset } = useForm();
+ const onSubmit = (data) => {
+  updateUser(
+   data,
+   {
+    onSuccess: () => {
+     reset();
+     toast.success('Successful');
+    },
+    onError: () => {
+     reset();
+     toast.error('Encountered an error');
+    },
+   }
+  );
+ };
  return (
   <div className=" p-4 bg-slate-50 min-h-screen max-w-2xl">
    <div className="grid gap-3">
@@ -150,64 +178,89 @@ const UserProfile = () => {
       </Tabs.Content>
 
       <Tabs.Content value="edit">
+       <Form onSubmit={handleSubmit(onSubmit)}>
 
-       <Flex direction="column" gap="3" style={{ maxWidth: 400 }}>
+        <Flex direction="column" gap="3" style={{ maxWidth: 400 }}>
 
-        <TextField.Root>
-         <TextField.Slot>
-          <PersonIcon height="16" width="16" />
-         </TextField.Slot>
-         <TextField.Input placeholder="Full Name" size="3" />
-        </TextField.Root>
+         <TextField.Root>
+          <TextField.Slot>
+           <PersonIcon height="16" width="16" />
+          </TextField.Slot>
+          <TextField.Input required placeholder="Full Name" size="3" defaultValue={fullName}
+           {...register('fullName')} id="fullName"
+          />
+         </TextField.Root>
 
 
 
-        <TextField.Root>
-         <TextField.Slot>
-          <PersonIcon height="16" width="16" />
-         </TextField.Slot>
-         <TextField.Input placeholder="Display Name" size="3" />
-        </TextField.Root>
+         <TextField.Root>
+          <TextField.Slot>
+           <PersonIcon height="16" width="16" />
+          </TextField.Slot>
+          <TextField.Input required placeholder="Display Name" size="3"
+           {...register('displayName')} defaultValue={displayName} id="displayName"
+          />
+         </TextField.Root>
 
-        <TextField.Root>
-         <TextField.Slot>
-          <SewingPinIcon height="16" width="16" />
-         </TextField.Slot>
-         <TextField.Input placeholder="Address" size="3" />
-        </TextField.Root>
+         <TextField.Root>
+          <TextField.Slot>
+           <SewingPinIcon height="16" width="16" />
+          </TextField.Slot>
+          <TextField.Input required placeholder="Country" size="3"
+           {...register('country')} defaultValue={country} id="country"
+          />
+         </TextField.Root>
 
-        <TextField.Root>
+         {/* <TextField.Root>
+          <TextField.Slot>
+           <SewingPinIcon height="16" width="16" />
+          </TextField.Slot>
+          <TextField.Input required placeholder="State" size="3"
+           defaultValue={state}
+           {...register('state')} id="state"
+          />
+         </TextField.Root> */}
 
-         <Select.Root defaultValue="male">
-          <Select.Trigger />
-          <Select.Content position="popper">
-           <Select.Item value="male">Male</Select.Item>
-           <Select.Item value="female">Female</Select.Item>
-          </Select.Content>
-         </Select.Root>
+         <TextField.Root>
+          <TextField.Slot>
+           <SewingPinIcon height="16" width="16" />
+          </TextField.Slot>
+          <TextField.Input required placeholder="Address" size="3"
+           {...register('address')} id="address" defaultValue={address}
+          />
+         </TextField.Root>
 
-         <TextField.Slot>
-          <FaMale height="16" width="16" />
-         </TextField.Slot>
-        </TextField.Root>
+         <TextField.Root>
 
-       </Flex>
+          <select required
+           className=" py-1.5 px-4 rounded-lg bg-transparent border border-gray-300 " defaultValue={gender || 'male'} {...register('gender')} id="gender" >
+           <option value="male">Male</option>
+           <option value="female">Female</option>
+          </select>
 
-       <Flex gap="3" mt='5'>
-        <Button color="blue" variant="soft">
-         Edit Account
-        </Button>
-        {/* <Button color="cyan" variant="soft">
+          <TextField.Slot>
+           <FaMale height="16" width="16" />
+          </TextField.Slot>
+         </TextField.Root>
+
+        </Flex>
+
+        <Flex gap="3" mt='5'>
+         <Button disabled={isUpdating} color="blue" variant="soft" type="submit">
+          {isUpdating ? <SpinnerMini /> : 'Edit Account'}
+         </Button>
+         {/* <Button color="cyan" variant="soft">
          Edit profile
         </Button> */}
-        <Button color="yellow" variant="soft">
-         Cancel
-        </Button>
-        {/* <Button color="crimson" variant="soft">
+         <Button disabled={isUpdating} color="yellow" variant="soft" type="reset">
+          Cancel
+         </Button>
+         {/* <Button color="crimson" variant="soft">
          Edit profile
         </Button> */}
-       </Flex>
+        </Flex>
 
+       </Form>
 
       </Tabs.Content>
      </Box>

@@ -36,7 +36,7 @@ const UserPlan = () => {
  return (
   <div className=" bg-blue-50 p-4 min-h-screen">
    <div className=" text-slate-600">
-    <Heading m="4" size="5" align='center'>Typographic principles</Heading>
+    <Heading m="4" size="5" align='center'>Investment Plans</Heading>
     <p className=" text-center">Here is our several investment plans. You can invest daily, weekly or monthly and get higher returns in your investment.</p>
 
     <p className=" text-xs text-center py-4">Choose your favorite plan and start earning now.</p>
@@ -78,7 +78,6 @@ const UserPlan = () => {
       </div>
       <div onClick={() => console.log(plan.id)} className=" bg-white pt-3 pb-6 flex justify-center">
        <InvestBtn plan={plan.amount} id={plan.id} />
-
       </div>
      </div>)}
     </div>

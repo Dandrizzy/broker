@@ -8,20 +8,19 @@ import { useGet } from "../../Hooks/Get/useGet";
 const AdminUsers = () => {
  const { data, isLoading } = useUsers();
  const { fetch: fn } = useGetApi({ key: 'balance' });
- const { fetch, isFetching } = useGet({ key: ['balance'], fn });
-
+ const { fetch, isFetching } = useGet({ key: ['balance', data?.users?.id], fn });
  if (isLoading || isFetching) return <Spinner />;
-
  const balance = balId => {
-  const bal = fetch.filter(item => item.userId === balId);
-  return bal[0].balance;
+  const bal = fetch?.find(item => item.userId === balId);
+  if (bal === undefined) return;
+  return bal.balance;
  };
 
  return (
   <div className=" p-4">
    <Heading>Users List</Heading>
 
-   <p className=" text-xs">Total 5974 User account.</p>
+   <p className=" text-xs">Total of <span className=" font-semibold">{data?.users.length}</span> User accounts.</p>
 
    <div className="hidden lg:block py-8">
     <Table.Root variant="surface">
@@ -74,7 +73,7 @@ const AdminUsers = () => {
          <Badge color="green">Active</Badge>
         </Table.Cell>
         <Table.Cell>
-         <AdminDropDown />
+         <AdminDropDown id={user.id} />
         </Table.Cell>
        </Table.Row>
       </Table.Body>;
@@ -102,12 +101,17 @@ const AdminUsers = () => {
       const x = user?.user_metadata?.fullName?.split('')[0].toUpperCase();
       return <Table.Body key={user.id}>
        <Table.Row>
-        <Table.RowHeaderCell><Avatar
-         size="3"
-         src={avatar}
-         radius="full"
-         fallback={x}
-        /> {fullName}</Table.RowHeaderCell>
+        <Table.RowHeaderCell>
+         <div className="flex items-center gap-3">
+          <Avatar
+           size="3"
+           src={avatar}
+           radius="full"
+           fallback={x}
+          />
+          <p className=" capitalize">{fullName}</p>
+         </div>
+        </Table.RowHeaderCell>
         <Table.Cell>
          <p className=" font-semibold">{formatCurrency(balance(user.id))}</p>
         </Table.Cell>
@@ -120,7 +124,7 @@ const AdminUsers = () => {
          <Badge color="green">Active</Badge>
         </Table.Cell>
         <Table.Cell>
-         <AdminDropDown />
+         <AdminDropDown id={user.id} />
         </Table.Cell>
        </Table.Row>
       </Table.Body>;
@@ -143,12 +147,15 @@ const AdminUsers = () => {
       return <Table.Body key={user.id}>
        <Table.Row>
         <Table.RowHeaderCell>
-         <Avatar
-          size="3"
-          src={avatar}
-          radius="full"
-          fallback={x}
-         /> {fullName}
+         <div className="flex items-center gap-3">
+          <Avatar
+           size="3"
+           src={avatar}
+           radius="full"
+           fallback={x}
+          />
+          <p className=" capitalize">{fullName}</p>
+         </div>
         </Table.RowHeaderCell>
         <Table.Cell>
          <AdminDropDown id={user.id} />

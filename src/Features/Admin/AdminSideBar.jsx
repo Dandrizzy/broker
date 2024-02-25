@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { AvatarIcon, CheckCircledIcon, DashboardIcon, EnterIcon, ExitIcon, ReaderIcon } from "@radix-ui/react-icons";
+import { AvatarIcon, DashboardIcon, EnterIcon, ExitIcon, HomeIcon, ReaderIcon } from "@radix-ui/react-icons";
 
 const AdminSideBar = () => {
  const navigate = useNavigate();
@@ -43,9 +43,9 @@ const AdminSideBar = () => {
        <AvatarIcon height='22' width='22' />
        Manage User
       </div>
-      <div onClick={() => navigate('/admin/verify')} className=" flex gap-2 items-center p-2">
-       <CheckCircledIcon height='22' width='22' />
-       Verification Center
+      <div onClick={() => navigate('/')} className=" flex gap-2 items-center p-2">
+       <HomeIcon height='22' width='22' />
+       Go to home
       </div>
 
      </div>
