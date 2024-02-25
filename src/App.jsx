@@ -8,7 +8,7 @@ import './index.css';
 import '@radix-ui/themes/styles.css';
 import AppLayout from "./layouts/AppLayout";
 import Error from "./ui/Error";
-import UserLayout from "./layouts/Userlayout";
+import UserLayout from "./layouts/UserLayout";
 import UserDashboard from "./Features/user dashboard/UserDashboard";
 import UserTransactions from "./Pages/UserTransactions";
 import UserInvestment from "./Pages/UserInvestment";
