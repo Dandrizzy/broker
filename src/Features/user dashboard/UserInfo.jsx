@@ -5,10 +5,19 @@ import { CardStackMinusIcon, CardStackPlusIcon, ExitIcon, PersonIcon, } from "@r
 import { useNavigate } from "react-router-dom";
 import { useLogout } from "../authentication/useLogout";
 import SpinnerMini from "../../ui/SpinnerMini";
+import { useGetApi } from "@/Hooks/Get/useGetApi";
+import { useGet } from "@/Hooks/Get/useGet";
+import { useUser } from "../authentication/useUser";
+import Spinner from "@/ui/Spinner";
 
 const UserInfo = () => {
+ const { user } = useUser();
+ const { fetch: fn } = useGetApi({ key: 'balance' });
+ const { fetch: balances, isFetching } = useGet({ key: ['balance', user.id], fn });
+ const bal = balances.find(b => b.userId === user.id)?.balance;
  const navigate = useNavigate();
  const { isLoading, logout } = useLogout();
+ if (isFetching) return <Spinner />;
  if (isLoading) return <SpinnerMini />;
  return (
   <div className="">
@@ -22,9 +31,8 @@ const UserInfo = () => {
     </DropdownMenu.Trigger>
     <DropdownMenu.Content>
      <div className=" grid gap-2 p-4">
-      <p className=" uppercase text-xs text-black/50 w-60">account balance</p>
-      <p className=" text-xl font-bold text-green-400">{formatCurrency(500)}</p>
-      <p className=" text-slate-500 text-sm">0.1789 ETH</p>
+      <p className=" uppercase text-xl font-bold text-black/50 w-60">account balance</p>
+      <p className=" text-xl font-bold text-green-400">{formatCurrency(bal)}</p>
      </div>
      <DropdownMenu.Separator />
      <DropdownMenu.Item >
