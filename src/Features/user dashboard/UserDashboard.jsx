@@ -14,10 +14,10 @@ const UserDashboard = () => {
  const { user } = useUser();
 
  const { fetch: fn } = useGetApi({ key: 'balance' });
- const { fetch, isFetching } = useGet({ fn, key: ['balance', user.id] });
+ const { fetch, isFetching } = useGet({ fn, key: ['balance', user?.id] });
  const navigate = useNavigate();
  if (isFetching) return <Spinner />;
- const balance = fetch?.filter(item => item.userId === user.id)[0]?.balance;
+ const balance = fetch?.filter(item => item.userId === user?.id)[0]?.balance;
 
  return (
   <div className="p-4 text-slate-700 bg-neutral-100 min-h-screen">
