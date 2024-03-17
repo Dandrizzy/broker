@@ -1,19 +1,54 @@
-import { AlertDialog, Box, Button, Flex, Tabs, Text, TextField } from '@radix-ui/themes';
+import { AlertDialog, Box, Button, Flex, Heading, Tabs, Text, TextField } from '@radix-ui/themes';
 import { BiSolidBank } from 'react-icons/bi';
 import { FaMoneyBill1, FaPaypal, FaWallet } from 'react-icons/fa6';
 import { Form } from 'react-router-dom';
+import { formatCurrency } from '../Hooks/helpers';
+import { useUser } from '../Features/authentication/useUser';
+import Spinner from './Spinner';
+import { useGetApi } from '../Hooks/Get/useGetApi';
+import { useGet } from '../Hooks/Get/useGet';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
 const WithdrawPopUp = ({ text = 'Withdraw Profit', variant = 'solid' }) => {
+ const { user, isLoading } = useUser();
+ const { register, handleSubmit, reset } = useForm();
+ const { fetch: fn } = useGetApi({ key: 'balance' });
+ const { fetch: userBalance, isFetching } = useGet({ key: ['balance'], fn });
+ if (isLoading || isFetching) return <Spinner />;
+ const balance = userBalance?.find(bal => bal?.userId === user?.id)?.balance;
+
+ const bank = data => {
+  if (!data) return toast.error('error while requesting for withdrawal');
+  if (data.amount > balance) return toast.error("Withdrawal amount should not be greater than account balance");
+  console.log(data);
+  reset();
+  toast.success('Successfully placed withdrawal');
+ };
+ const paypal = data => {
+  if (!data) return toast.error('error while requesting for withdrawal');
+  if (data.amount > balance) return toast.error("Withdrawal amount should not be greater than account balance");
+  console.log(data);
+  reset();
+  toast.success('Successfully placed withdrawal');
+ };
+ const wallet = data => {
+  if (!data) return toast.error('error while requesting for withdrawal');
+  if (data.amount > balance) return toast.error("Withdrawal amount should not be greater than account balance");
+  console.log(data);
+  reset();
+  toast.success('Successfully placed withdrawal');
+ };
  return (
-  <div>
+  <>
    <AlertDialog.Root>
     <AlertDialog.Trigger>
-     <Button color="blue" variant={variant}>{text}</Button>
+     <Button color="blue" disabled={!user} variant={variant}>{text}</Button>
     </AlertDialog.Trigger>
     <AlertDialog.Content style={{ maxWidth: 450 }}>
      <AlertDialog.Title>Withdrawal Portal</AlertDialog.Title>
      <AlertDialog.Description size="2">
-
+      <Heading size='2'>Account Balance: {formatCurrency(balance)}</Heading>
       <Tabs.Root defaultValue="bank">
        <Tabs.List>
         <Tabs.Trigger value="bank">Bank Account</Tabs.Trigger>
@@ -23,7 +58,7 @@ const WithdrawPopUp = ({ text = 'Withdraw Profit', variant = 'solid' }) => {
 
        <Box px="4" pt="3" pb="2">
         <Tabs.Content value="bank">
-         <Form>
+         <Form onSubmit={handleSubmit(bank)}>
           <Flex direction="column" gap="3">
            <label>
             <Text as="div" size="2" mb="1" weight="bold">
@@ -33,7 +68,7 @@ const WithdrawPopUp = ({ text = 'Withdraw Profit', variant = 'solid' }) => {
              <TextField.Slot>
               <FaMoneyBill1 />
              </TextField.Slot>
-             <TextField.Input type='number' placeholder="Enter amount" />
+             <TextField.Input required {...register('amount')} id='amount' type='number' placeholder="Enter amount" />
             </TextField.Root>
            </label>
            <label>
@@ -44,7 +79,7 @@ const WithdrawPopUp = ({ text = 'Withdraw Profit', variant = 'solid' }) => {
              <TextField.Slot>
               <BiSolidBank />
              </TextField.Slot>
-             <TextField.Input type='text' placeholder="Enter bank account number" />
+             <TextField.Input {...register('bankAccount')} id='bankAccount' required type='text' placeholder="Enter bank account number" />
             </TextField.Root>
            </label>
            <label>
@@ -55,7 +90,7 @@ const WithdrawPopUp = ({ text = 'Withdraw Profit', variant = 'solid' }) => {
              <TextField.Slot>
               <BiSolidBank />
              </TextField.Slot>
-             <TextField.Input type='text' placeholder="Enter bank name" />
+             <TextField.Input {...register('bankName')} id='bankName' required type='text' placeholder="Enter bank name" />
             </TextField.Root>
            </label>
            <label>
@@ -66,7 +101,7 @@ const WithdrawPopUp = ({ text = 'Withdraw Profit', variant = 'solid' }) => {
              <TextField.Slot>
               <BiSolidBank />
              </TextField.Slot>
-             <TextField.Input type='text' placeholder="Enter bank routing number" />
+             <TextField.Input {...register('routingNumber')} id='amount' required type='text' placeholder="Enter bank routing number" />
             </TextField.Root>
            </label>
           </Flex>
@@ -77,17 +112,19 @@ const WithdrawPopUp = ({ text = 'Withdraw Profit', variant = 'solid' }) => {
             </Button>
            </AlertDialog.Cancel>
            <AlertDialog.Action>
-            <Button variant="solid" color="green">
+
+            <Button type='submit' variant="solid" color="green">
              Withdraw
             </Button>
            </AlertDialog.Action>
+
           </Flex>
          </Form>
 
         </Tabs.Content>
 
         <Tabs.Content value="paypal">
-         <Form>
+         <Form onSubmit={handleSubmit(paypal)}>
           <Flex direction="column" gap="3">
            <label>
             <Text as="div" size="2" mb="1" weight="bold">
@@ -97,7 +134,7 @@ const WithdrawPopUp = ({ text = 'Withdraw Profit', variant = 'solid' }) => {
              <TextField.Slot>
               <FaMoneyBill1 />
              </TextField.Slot>
-             <TextField.Input type='number' placeholder="Enter amount" />
+             <TextField.Input {...register('amount')} id='amount' required type='number' placeholder="Enter amount" />
             </TextField.Root>
            </label>
            <label>
@@ -108,7 +145,7 @@ const WithdrawPopUp = ({ text = 'Withdraw Profit', variant = 'solid' }) => {
              <TextField.Slot>
               <FaPaypal />
              </TextField.Slot>
-             <TextField.Input type='text' placeholder="Enter PayPal ID" />
+             <TextField.Input {...register('paypalId')} id='paypalId' required type='text' placeholder="Enter PayPal ID" />
             </TextField.Root>
            </label>
           </Flex>
@@ -119,7 +156,7 @@ const WithdrawPopUp = ({ text = 'Withdraw Profit', variant = 'solid' }) => {
             </Button>
            </AlertDialog.Cancel>
            <AlertDialog.Action>
-            <Button variant="solid" color="green">
+            <Button type='submit' variant="solid" color="green" disabled={!user}>
              Withdraw
             </Button>
            </AlertDialog.Action>
@@ -128,7 +165,7 @@ const WithdrawPopUp = ({ text = 'Withdraw Profit', variant = 'solid' }) => {
         </Tabs.Content>
 
         <Tabs.Content value="wallet">
-         <Form>
+         <Form onSubmit={handleSubmit(wallet)}>
           <Flex direction="column" gap="3">
            <label>
             <Text as="div" size="2" mb="1" weight="bold">
@@ -138,7 +175,7 @@ const WithdrawPopUp = ({ text = 'Withdraw Profit', variant = 'solid' }) => {
              <TextField.Slot>
               <FaMoneyBill1 />
              </TextField.Slot>
-             <TextField.Input type='number' placeholder="Enter amount" />
+             <TextField.Input {...register('amount')} id='amount' required type='number' placeholder="Enter amount" />
             </TextField.Root>
            </label>
            <label>
@@ -149,7 +186,7 @@ const WithdrawPopUp = ({ text = 'Withdraw Profit', variant = 'solid' }) => {
              <TextField.Slot>
               <FaWallet />
              </TextField.Slot>
-             <TextField.Input type='next' placeholder="Enter wallet name" />
+             <TextField.Input {...register('walletName')} id='walletName' required type='next' placeholder="Enter wallet name" />
             </TextField.Root>
            </label>
            <label>
@@ -160,7 +197,7 @@ const WithdrawPopUp = ({ text = 'Withdraw Profit', variant = 'solid' }) => {
              <TextField.Slot>
               <FaWallet />
              </TextField.Slot>
-             <TextField.Input type='text' placeholder="Enter wallet ID" />
+             <TextField.Input {...register('walletId')} id='walletId' required type='text' placeholder="Enter wallet ID" />
             </TextField.Root>
            </label>
           </Flex>
@@ -172,7 +209,7 @@ const WithdrawPopUp = ({ text = 'Withdraw Profit', variant = 'solid' }) => {
             </Button>
            </AlertDialog.Cancel>
            <AlertDialog.Action>
-            <Button variant="solid" color="green">
+            <Button disabled={!user} type='submit' variant="solid" color="green">
              Withdraw
             </Button>
            </AlertDialog.Action>
@@ -188,7 +225,7 @@ const WithdrawPopUp = ({ text = 'Withdraw Profit', variant = 'solid' }) => {
     </AlertDialog.Content>
    </AlertDialog.Root>
 
-  </div>
+  </>
  );
 };
 

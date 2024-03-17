@@ -14,7 +14,7 @@ const UserDashboard = () => {
  const { user } = useUser();
 
  const { fetch: fn } = useGetApi({ key: 'balance' });
- const { fetch, isFetching } = useGet({ fn, key: ['balance'] });
+ const { fetch, isFetching } = useGet({ fn, key: ['balance', user.id] });
  const navigate = useNavigate();
  if (isFetching) return <Spinner />;
  const balance = fetch?.filter(item => item.userId === user.id)[0]?.balance;

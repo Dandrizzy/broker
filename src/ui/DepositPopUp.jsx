@@ -2,16 +2,18 @@ import { AlertDialog, Box, Button, Flex, Tabs, Text } from '@radix-ui/themes';
 import { useGet } from '../Hooks/Get/useGet';
 import { useGetApi } from '../Hooks/Get/useGetApi';
 import Spinner from './Spinner';
+import { useUser } from '@/Features/authentication/useUser';
 
 const DepositPopUp = ({ text = 'Make a Deposit', variant = 'solid', arrow = '' }) => {
  const { fetch: fn } = useGetApi({ key: 'wallet' });
  const { fetch: wallet, isFetching } = useGet({ key: ['wallet'], fn });
+ const { user } = useUser();
  if (isFetching) return <Spinner />;
  return (
   <div>
    <AlertDialog.Root>
     <AlertDialog.Trigger>
-     <Button color="blue" variant={variant}>{text} {arrow}</Button>
+     <Button color="blue" disabled={!user} variant={variant}>{text} {arrow}</Button>
     </AlertDialog.Trigger>
     <AlertDialog.Content style={{ maxWidth: 450 }}>
      <AlertDialog.Title>Deposit Portal</AlertDialog.Title>

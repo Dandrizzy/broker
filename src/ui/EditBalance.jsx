@@ -9,7 +9,7 @@ import { useGet } from "../Hooks/Get/useGet";
 import SpinnerMini from "./SpinnerMini";
 import { useState } from "react";
 
-const EditBalance = ({ id }) => {
+const EditBalance = ({ id, text = 'Edit' }) => {
  const { getSpecific } = useGetById({ key: 'balance', id: id, column: 'userId' });
  const { fetch, isFetching } = useGet({ key: ['balance'], fn: getSpecific });
 
@@ -31,7 +31,7 @@ const EditBalance = ({ id }) => {
    <Dialog.Trigger>
     <Button color="blue" variant="solid">
      <Pencil2Icon />
-     Edit
+     {text}
     </Button>
    </Dialog.Trigger>
 

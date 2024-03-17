@@ -1,8 +1,9 @@
 import { Button, Flex } from "@radix-ui/themes";
 import { formatCurrency } from "../../Hooks/helpers";
-import InvestBtn from "../../ui/InvestBtn";
+import { useNavigate } from "react-router-dom";
 
 const Cards = () => {
+ const navigate = useNavigate();
  return (
   <div className="p-4 mx-auto place-items-center grid gap-8 sm:grid-cols-2 lg:grid-cols-4 ">
    <div className="bg-blue-950 min-w-[350px] max-w-md rounded-2xl text-blue-50 shadow-xl">
@@ -32,7 +33,7 @@ const Cards = () => {
     </div>
     <div className=" pt-4 pb-8 flex items-center justify-center">
      <Flex align="center" gap="3">
-      <InvestBtn />
+      <Button onClick={() => navigate('/user/plans')} variant="solid" size='3'>Invest Now</Button>
      </Flex>
     </div>
 
@@ -65,7 +66,7 @@ const Cards = () => {
     </div>
     <div className=" pt-4 pb-8 flex items-center justify-center">
      <Flex align="center" gap="3">
-      <InvestBtn />
+      <Button onClick={() => navigate('/user/plans')} variant="surface" size='3'>Invest Now</Button>
      </Flex>
     </div>
 
@@ -98,7 +99,7 @@ const Cards = () => {
     </div>
     <div className=" pt-4 pb-8 flex items-center justify-center">
      <Flex align="center" gap="3">
-      <InvestBtn />
+      <Button onClick={() => navigate('/user/plans')} variant="surface" size='3'>Invest Now</Button>
      </Flex>
     </div>
 
@@ -130,7 +131,7 @@ const Cards = () => {
     </div>
     <div className=" pt-4 pb-8 flex items-center justify-center">
      <Flex align="center" gap="3">
-      <Button variant="surface" size='3'>Invest Now</Button>
+      <Button onClick={() => navigate('/user/plans')} variant="surface" size='3'>Invest Now</Button>
      </Flex>
     </div>
 
