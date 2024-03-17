@@ -13,11 +13,14 @@ import CreateAccount from "./CreateAccount";
 const UserDashboard = () => {
  const { user } = useUser();
 
+
  const { fetch: fn } = useGetApi({ key: 'balance' });
  const { fetch, isFetching } = useGet({ fn, key: ['balance', user?.id] });
  const navigate = useNavigate();
  if (isFetching) return <Spinner />;
  const balance = fetch?.filter(item => item.userId === user?.id)[0]?.balance;
+
+ if (!balance || balance === undefined) return < CreateAccount />;
 
  return (
   <div className="p-4 text-slate-700 bg-neutral-100 min-h-screen">
@@ -34,7 +37,7 @@ const UserDashboard = () => {
      </Button>
     </div>
    </div>
-   {!balance && <CreateAccount />}
+   {/* {!balance && } */}
 
    {balance && <div className=" py-8 grid gap-8 sm:grid-cols-3">
 
