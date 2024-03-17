@@ -13,7 +13,7 @@ import Spinner from "@/ui/Spinner";
 const UserInfo = () => {
  const { user } = useUser();
  const { fetch: fn } = useGetApi({ key: 'balance' });
- const { fetch: balances, isFetching } = useGet({ key: ['balance', user.id], fn });
+ const { fetch: balances = [], isFetching } = useGet({ key: ['balance', user.id], fn });
  const bal = balances.find(b => b.userId === user.id)?.balance;
  const navigate = useNavigate();
  const { isLoading, logout } = useLogout();

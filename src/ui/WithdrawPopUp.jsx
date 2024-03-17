@@ -14,7 +14,7 @@ const WithdrawPopUp = ({ text = 'Withdraw Profit', variant = 'solid' }) => {
  const { user, isLoading } = useUser();
  const { register, handleSubmit, reset } = useForm();
  const { fetch: fn } = useGetApi({ key: 'balance' });
- const { fetch: userBalance, isFetching } = useGet({ key: ['balance'], fn });
+ const { fetch: userBalance = [], isFetching } = useGet({ key: ['balance'], fn });
  console.log(userBalance);
  if (isLoading || isFetching) return <Spinner />;
  const balance = userBalance?.find(bal => bal?.userId === user?.id)?.balance;
