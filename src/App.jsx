@@ -26,6 +26,7 @@ import Deposit from "./Pages/Deposit";
 import UserAdmin from "./Pages/UserAdmin";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import Payments from "./Pages/Payments";
+import AdminRoute from "./Features/Admin/AdminRoute";
 const Home = lazy(() => import("./Pages/Home"));
 
 
@@ -90,7 +91,7 @@ const router = createBrowserRouter([
     ]
   },
   {
-    element: <AdminLayout />,
+    element: <AdminRoute><AdminLayout /></AdminRoute>,
     errorElement: <Error />,
     children: [
 

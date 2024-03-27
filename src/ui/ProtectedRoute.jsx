@@ -17,7 +17,7 @@ function ProtectedRoute({ children }) {
   const navigate = useNavigate();
 
   // 1. Load the authenticated user
-  const { isLoading, isAuthenticated } = useUser();
+  const { isLoading, isAuthenticated, user } = useUser();
 
   // 2. If there is NO authenticated user, redirect to the /login
   useEffect(
@@ -39,6 +39,7 @@ function ProtectedRoute({ children }) {
     );
 
   // 4. If there IS a user, render the app
+  if (isAuthenticated && user.email === 'atogwedaniel@gmail.com') return navigate('/admin');
   if (isAuthenticated) return children;
 }
 
