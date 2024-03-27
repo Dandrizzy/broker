@@ -1,14 +1,21 @@
-import { AlertDialog, Box, Button, Flex, Tabs, Text } from '@radix-ui/themes';
+import { AlertDialog, Box, Button, Flex, Tabs, Text, TextField } from '@radix-ui/themes';
 import { useGet } from '../Hooks/Get/useGet';
 import { useGetApi } from '../Hooks/Get/useGetApi';
 import Spinner from './Spinner';
 import { useUser } from '@/Features/authentication/useUser';
+import { Form } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
 const DepositPopUp = ({ text = 'Make a Deposit', variant = 'solid', arrow = '' }) => {
+ const { register, handleSubmit, reset } = useForm();
  const { fetch: fn } = useGetApi({ key: 'wallet' });
  const { fetch: wallet, isFetching } = useGet({ key: ['wallet'], fn });
  const { user } = useUser();
  if (isFetching) return <Spinner />;
+ const submit = data => {
+  console.log(data);
+  reset();
+ };
  return (
   <div>
    <AlertDialog.Root>
@@ -59,47 +66,40 @@ const DepositPopUp = ({ text = 'Make a Deposit', variant = 'solid', arrow = '' }
 
         </Tabs.Content>
 
-        {/* <Tabs.Content value="trust">
-         <Tabs.Root defaultValue="btc">
-          <Tabs.List>
-           <Tabs.Trigger value="btc">BTC</Tabs.Trigger>
-           <Tabs.Trigger value="usdt">USDT</Tabs.Trigger>
-           <Tabs.Trigger value="eth">ETH</Tabs.Trigger>
-          </Tabs.List>
-
-          <Box px="4" pt="3" pb="2">
-           <Tabs.Content value="btc">
-            <Text size="2">Make changes to your account.</Text>
-           </Tabs.Content>
-
-           <Tabs.Content value="usdt">
-            <Text size="2">Access and update your documents.</Text>
-           </Tabs.Content>
-
-           <Tabs.Content value="eth">
-            <Text size="2">Edit your profile or update contact information.</Text>
-           </Tabs.Content>
-          </Box>
-         </Tabs.Root>
-
-        </Tabs.Content> */}
        </Box>
       </Tabs.Root>
 
      </AlertDialog.Description>
+     <Form onSubmit={handleSubmit(submit)}>
+      <Flex direction="column" gap="3">
+       <label>
+        <Text as="div" size="2" mb="1" weight="bold">
+         Amount
+        </Text>
+        <TextField.Input
+         {...register('amount')}
+         required
+         type='number'
+         defaultValue="2000"
+         placeholder="Enter deposit amount"
+        />
+       </label>
 
-     <Flex gap="3" mt="4" justify="end">
-      <AlertDialog.Cancel>
-       <Button variant="soft" color="gray">
-        Cancel
-       </Button>
-      </AlertDialog.Cancel>
-      <AlertDialog.Action>
-       <Button variant="solid" color="green">
-        Payed
-       </Button>
-      </AlertDialog.Action>
-     </Flex>
+      </Flex>
+
+      <Flex gap="3" mt="4" justify="end">
+       <AlertDialog.Cancel>
+        <Button variant="soft" color="gray">
+         Cancel
+        </Button>
+       </AlertDialog.Cancel>
+       <AlertDialog.Action>
+        <Button variant="solid" type='submit' color="green">
+         Payed
+        </Button>
+       </AlertDialog.Action>
+      </Flex>
+     </Form>
     </AlertDialog.Content>
    </AlertDialog.Root>
 

@@ -9,7 +9,7 @@ const Intro = () => {
     Safe
     <br />
     investment
-    <br />with Company
+    <br />with GOLDEN TRADE FX
    </p>
    <p className=" font-semibold sm:text-xl text-center pb-6">GET LIFETIME INCOME ON INVESTMENT</p>
    <Flex align="center" gap="3">

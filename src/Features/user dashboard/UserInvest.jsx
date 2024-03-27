@@ -1,12 +1,12 @@
 import { InfoCircledIcon, PlusIcon } from "@radix-ui/react-icons";
 import { Button, Flex } from "@radix-ui/themes";
-import { formatCurrency } from "../../Hooks/helpers";
 import { useNavigate } from "react-router-dom";
 import EditBalance from "@/ui/EditBalance";
-import { useUser } from "../authentication/useUser";
 import { useGetApi } from "@/Hooks/Get/useGetApi";
 import { useGet } from "@/Hooks/Get/useGet";
 import Spinner from "@/ui/Spinner";
+import { formatCurrency } from "@/Hooks/helpers";
+import { useUser } from "../authentication/useUser";
 
 const UserInvest = () => {
  const { fetch } = useGetApi({ key: 'investments' });

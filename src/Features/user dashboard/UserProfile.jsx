@@ -4,10 +4,10 @@ import { Box, Button, Callout, DropdownMenu, Flex, Grid, Heading, Tabs, TextFiel
 import { FaBuildingColumns, FaPaypal, FaWallet } from "react-icons/fa6";
 import { Form } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useUser } from "../authentication/useUser";
 import { useUpdateUser } from "../authentication/useUpdateUser";
 import toast from "react-hot-toast";
 import SpinnerMini from "../../ui/SpinnerMini";
+import { useUser } from "../authentication/useUser";
 const UserProfile = () => {
  const { updateUser, isUpdating } = useUpdateUser();
  const {
@@ -138,7 +138,7 @@ const UserProfile = () => {
          You have not added any withdraw account yet in your account.
         </Callout.Text>
         <Callout.Text>
-         Please add the personal or company accounts that you&apos;d like to withdraw funds.
+         Please add the personal or GOLDEN TRADE FX accounts that you&apos;d like to withdraw funds.
         </Callout.Text>
         <div className="pt-5">
          <Grid columns="2" gap="3" display="inline-grid">

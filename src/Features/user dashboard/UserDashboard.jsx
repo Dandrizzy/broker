@@ -1,5 +1,4 @@
 import { InfoCircledIcon, PinRightIcon } from "@radix-ui/react-icons";
-import { formatCurrency } from "../../Hooks/helpers";
 import { Button, Flex } from "@radix-ui/themes";
 import { useNavigate } from "react-router-dom";
 import DepositPopUp from "../../ui/DepositPopUp";
@@ -9,6 +8,7 @@ import { useGetApi } from "../../Hooks/Get/useGetApi";
 import Spinner from "../../ui/Spinner";
 import WithdrawPopUp from "../../ui/WithdrawPopUp";
 import CreateAccount from "./CreateAccount";
+import { formatCurrency } from "@/Hooks/helpers";
 
 const UserDashboard = () => {
  const { user } = useUser();

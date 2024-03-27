@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const tabs = ["home", "Investment", "About", "FAQs", "Contact"];
+const tabs = ["user", "transaction", "investment", "our plans", "profile"];
 
 const Nav = () => {
 
@@ -37,7 +37,7 @@ const Chip = ({
     <button
       onClick={() => {
         setSelected(text);
-        navigate(`${text.toLowerCase()}`);
+        navigate(`/user/${text.toLowerCase()}`);
       }}
       className={`${selected
         ? "text-white"

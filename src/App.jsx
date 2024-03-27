@@ -25,6 +25,7 @@ import Withdraw from "./Pages/Withdraw";
 import Deposit from "./Pages/Deposit";
 import UserAdmin from "./Pages/UserAdmin";
 import ProtectedRoute from "./ui/ProtectedRoute";
+import Payments from "./Pages/Payments";
 const Home = lazy(() => import("./Pages/Home"));
 
 
@@ -96,6 +97,10 @@ const router = createBrowserRouter([
       {
         path: '/admin',
         element: <Admin />
+      },
+      {
+        path: '/admin/payments',
+        element: <Payments />
       },
       {
         path: '/admin/deposit',

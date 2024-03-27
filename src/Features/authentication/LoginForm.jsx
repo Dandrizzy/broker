@@ -128,7 +128,7 @@ function LoginForm() {
                           {...register("displayName", { required: "This field is required" })}
                           id='displayName'
                           type='text'
-                          placeholder="Enter your full name"
+                          placeholder="Enter your display name"
                         />
                       </label>
 
@@ -141,7 +141,7 @@ function LoginForm() {
                           id='address'
                           type='text'
 
-                          placeholder="Enter your full name"
+                          placeholder="Enter your home address"
                         />
                       </label>
 
@@ -154,7 +154,7 @@ function LoginForm() {
                           id='phoneNumber'
                           type='tel'
 
-                          placeholder="Enter your full name"
+                          placeholder="Enter your phone number"
                         />
                       </label>
 
@@ -228,7 +228,7 @@ function LoginForm() {
 
                     <Dialog.Title>Sign Up</Dialog.Title>
                     <Dialog.Description size="2" mb="4">
-                      Sign up for free.
+                      Sign in.
                     </Dialog.Description>
 
                     <Flex direction="column" gap="3">

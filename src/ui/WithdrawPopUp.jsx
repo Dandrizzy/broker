@@ -69,7 +69,7 @@ const WithdrawPopUp = ({ text = 'Withdraw Profit', variant = 'solid' }) => {
              <TextField.Slot>
               <FaMoneyBill1 />
              </TextField.Slot>
-             <TextField.Input required {...register('amount')} id='amount' type='number' placeholder="Enter amount" />
+             <TextField.Input required {...register('amount', { max: balance })} max={balance} id='amount' type='number' placeholder="Enter amount" />
             </TextField.Root>
            </label>
            <label>

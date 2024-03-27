@@ -2,6 +2,7 @@ import { Button } from "@radix-ui/themes";
 import EditDeposit from "./EditDeposit";
 import { FaCircleUser } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import { MdPayment } from "react-icons/md";
 
 
 const AdminDashboard = () => {
@@ -14,9 +15,10 @@ const AdminDashboard = () => {
     <h1 className=" text-xs">Here&apos;s a summary of your account. Have fun!
     </h1>
    </div>
-   <div className=" flex gap-3">
+   <div className=" flex gap-3 flex-wrap">
     <EditDeposit />
-    <Button onClick={() => navigate('/admin/manage')}><FaCircleUser />Users</Button>
+    <Button variant="soft" onClick={() => navigate('/admin/manage')}><FaCircleUser />Users</Button>
+    <Button variant="soft" onClick={() => navigate('/admin/payments')}><MdPayment />Payments</Button>
    </div>
 
 
