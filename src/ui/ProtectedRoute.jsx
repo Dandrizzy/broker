@@ -39,7 +39,7 @@ function ProtectedRoute({ children }) {
     );
 
   // 4. If there IS a user, render the app
-  if (isAuthenticated && user.email === 'atogwedaniel@gmail.com') return navigate('/admin');
+  if (isAuthenticated && user.email === 'officialgoldenfx22@gmail.com') return navigate('/admin');
   if (isAuthenticated) return children;
 }
 
