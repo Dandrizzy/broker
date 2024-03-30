@@ -226,7 +226,7 @@ function LoginForm() {
 
                   <Tabs.Content value="sign Up">
 
-                    <Dialog.Title>Sign Up</Dialog.Title>
+                    <Dialog.Title>Sign In</Dialog.Title>
                     <Dialog.Description size="2" mb="4">
                       Sign in.
                     </Dialog.Description>
