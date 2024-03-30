@@ -1,13 +1,13 @@
 import styled from "styled-components";
-import { useUser } from '../Features/authentication/useUser';
-import Spinner from "./Spinner";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
+import { useUser } from "../authentication/useUser";
+import Spinner from "@/ui/Spinner";
 
 const FullPage = styled.div`
   height: 100vh;
-  background-color: var(--color-grey-50);
+  background-color: #f9fafb;
   display: flex;
   align-items: center;
   justify-content: center;
